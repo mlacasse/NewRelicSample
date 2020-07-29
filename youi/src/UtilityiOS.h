@@ -1,3 +1,5 @@
+#if defined(YI_IOS) || defined(YI_TVOS)
+
 #ifndef UtilityiOS_h
 #define UtilityiOS_h
 
@@ -14,3 +16,5 @@ bool isRunningiOSSimulator();
 @end
 
 #endif /* UtilityiOS_h */
+
+#endif
