@@ -1,9 +1,13 @@
+#if defined(YI_IOS) || defined(YI_TVOS)
+
 #include "NewRelicBridge.h"
 #include "UtilityiOS.h"
 
+#include <youireact/NativeModuleRegistry.h>
+
 #if defined(YI_IOS)
 #import <NewRelicAgent/NewRelic.h>
-#else
+#elif definted(YI_TVOS)
 #import <NewRelicAgentTVOS/NewRelic.h>
 #endif
 
@@ -52,4 +56,4 @@ YI_RN_DEFINE_EXPORT_METHOD(NewRelicBridgeModule, crashNow)()
     [NewRelicAgent crashNow:@"This is a test crash on iOS/tvOS."];
 }
 
-
+#endif

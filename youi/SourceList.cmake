@@ -7,9 +7,13 @@ set (YI_PROJECT_SOURCE
     src/NewRelicBridge.cpp
     src/NewRelicBridgeAndroid.cpp
     src/NewRelicBridgeiOS.mm
+    src/UtilityBridgesAndroid.cpp
+    src/UtilityiOS.mm
 )
 
 set (YI_PROJECT_HEADERS
     src/App.h
     src/NewRelicBridge.h
+    src/UtilityBridgesAndroid.h
+    src/UtilityiOS.h
 )

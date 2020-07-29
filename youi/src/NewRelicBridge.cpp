@@ -2,6 +2,8 @@
 
 #include "NewRelicBridge.h"
 
+#include <youireact/NativeModuleRegistry.h>
+
 YI_RN_INSTANTIATE_MODULE(NewRelicBridgeModule);
 
 YI_RN_REGISTER_MODULE(NewRelicBridgeModule);
