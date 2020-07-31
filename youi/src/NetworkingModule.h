@@ -1,7 +1,7 @@
 #ifndef _YOUIREACT_NETWORKING_MODULE_H_
 #define _YOUIREACT_NETWORKING_MODULE_H_
 
-#include "NetworkingRequestProps.h"
+#include <youireact/modules/NetworkingRequestProps.h>
 
 #include <network/YiHTTPService.h>
 #include <youireact/modules/EventEmitter.h>

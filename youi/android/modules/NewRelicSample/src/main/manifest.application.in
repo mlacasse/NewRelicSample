@@ -25,7 +25,7 @@
 	     - orientation and screenSize are specified for device rotations 
 	     - screenLayout is specified for entering/exiting multi-tasking mode
 	     - keyboard and keyboardHidden are specified for usb and bluetooth keyboard availability -->
-        <activity android:name="tv.youi.youiengine.CYIActivity"
+        <activity android:name="tv.youi.AppActivity"
                   android:configChanges="orientation|screenSize|screenLayout|keyboard|keyboardHidden|navigation"
                   android:label="@string/app_name"
                   android:launchMode="singleInstance"

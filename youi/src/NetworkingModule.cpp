@@ -248,6 +248,7 @@ void MyNetworkingModule::OnRequestComplete(const std::shared_ptr<CYIHTTPRequest>
 
         // Objective-C: Track custom network requests - https://docs.newrelic.com/docs/mobile-monitoring/new-relic-mobile-ios/api-guides/ios-sdk-api-guide#objc-instrumentation
 
+#if defined(YI_IOS) || defined(YI_TVOS)
         YI_LOGD(TAG,
                 "\nRequest %s\n" \
                 "\tMetrics:\n"
@@ -268,6 +269,7 @@ void MyNetworkingModule::OnRequestComplete(const std::shared_ptr<CYIHTTPRequest>
                 pResponse->GetBody().GetSizeInBytes(),
                 pResponse->GetRequestTime().FormatString().GetData(),
                 pResponse->GetResponseTime().FormatString().GetData());
+#endif
 
         // statusCode returns the origin server response code in the case of re-validation (e.g. sometimes 304)
         // Existing RN framework expect the behaviour, re-validated succesfully (304) or not (200), the response should be 200

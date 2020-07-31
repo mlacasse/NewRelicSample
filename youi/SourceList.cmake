@@ -3,10 +3,11 @@
 
 set (YI_PROJECT_SOURCE
     src/App.cpp
+    src/AppDelegate.mm
     src/AppFactory.cpp
     src/JniGlobalRefsManager.cpp
+    src/main.mm
     src/NetworkingModule.cpp
-    src/NetworkingRequestProps.cpp
     src/NewRelicBridge.cpp
     src/NewRelicBridgeAndroid.cpp
     src/NewRelicBridgeiOS.mm
@@ -16,9 +17,9 @@ set (YI_PROJECT_SOURCE
 
 set (YI_PROJECT_HEADERS
     src/App.h
+    src/AppDelegate.h
     src/JniGlobalRefsManager.h
     src/NetworkingModule.h
-    src/NetworkingRequestProps.h
     src/NewRelicBridge.h
     src/UtilityBridgesAndroid.h
     src/UtilityiOS.h
