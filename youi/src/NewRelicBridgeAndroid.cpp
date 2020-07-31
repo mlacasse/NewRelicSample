@@ -4,6 +4,8 @@
 #include "UtilityBridgesAndroid.h"
 #include "JniGlobalRefsManager.h"
 
+#include <youireact/NativeModuleRegistry.h>
+
 #include <string>
 
 extern jobject  cachedActivity;

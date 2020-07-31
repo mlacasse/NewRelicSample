@@ -4,6 +4,7 @@
 set (YI_PROJECT_SOURCE
     src/App.cpp
     src/AppFactory.cpp
+    src/JniGlobalRefsManager.cpp
     src/NewRelicBridge.cpp
     src/NewRelicBridgeAndroid.cpp
     src/NewRelicBridgeiOS.mm
@@ -13,6 +14,7 @@ set (YI_PROJECT_SOURCE
 
 set (YI_PROJECT_HEADERS
     src/App.h
+    src/JniGlobalRefsManager.h
     src/NewRelicBridge.h
     src/UtilityBridgesAndroid.h
     src/UtilityiOS.h

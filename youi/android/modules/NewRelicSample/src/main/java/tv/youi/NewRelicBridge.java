@@ -1,4 +1,4 @@
-package tv.youi.clientapp;
+package tv.youi;
 
 import java.util.Map;
 import android.app.Activity;

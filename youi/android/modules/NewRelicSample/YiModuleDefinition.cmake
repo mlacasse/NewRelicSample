@@ -16,8 +16,19 @@ if(YI_LOCAL_JS)
     set(USE_BUNDLED_ASSETS_DEST "YI_BUNDLED_ASSETS_DEST=${YI_BUNDLED_ASSETS_DEST}")
 endif()
 
+set(NEWRELIC_APPLICATION_TOKEN "AAe9970cb20fda505e5d6172c2e80d02e6696278b0")
+configure_file(
+    ${CMAKE_CURRENT_LIST_DIR}/newrelic.properties.in
+    ${_PROJECT_DIR}/build/android/project/NewRelicSample/newrelic.properties
+    @ONLY
+)
+
+if (YI_IP_CONFIG)
+  set(USE_IP_CONFIG "YI_IP_CONFIG=${YI_IP_CONFIG}")
+endif()
+
 set(YI_REACT_APP ON)
-yi_define_module(MyApp
+yi_define_module(NewRelicSample
     TYPE APPLICATION
     PROJECT_DIR ${_PROJECT_DIR}
     VARIABLES
@@ -27,7 +38,8 @@ yi_define_module(MyApp
         "YI_BUILD_NUMBER=1"
         "YI_VERSION_NUMBER=1.0.0"
         "YI_API_LEVEL=21"
-        "YI_TARGET_SDK_API_LEVEL=27"
+        "YI_TARGET_API_LEVEL=28"
+        ${USE_IP_CONFIG}
         ${USE_LOCAL_JS}
         ${USE_JS_INLINE}
         ${USE_BUNDLED_ASSETS_DEST}

@@ -132,6 +132,7 @@ dependencies {
     implementation 'com.google.android.exoplayer:exoplayer:2.11.1'
     implementation 'com.google.android.exoplayer:extension-mediasession:2.11.1'
     implementation 'com.google.android.gms:play-services-ads:15.0.1'
+    implementation 'com.newrelic.agent.android:android-agent:5.24.2'
 
     // Load unit test support libraries
     testImplementation "junit:junit:4.12"

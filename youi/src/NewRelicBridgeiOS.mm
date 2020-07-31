@@ -7,7 +7,7 @@
 
 #if defined(YI_IOS)
 #import <NewRelicAgent/NewRelic.h>
-#elif definted(YI_TVOS)
+#elif defined(YI_TVOS)
 #import <NewRelicAgentTVOS/NewRelic.h>
 #endif
 
