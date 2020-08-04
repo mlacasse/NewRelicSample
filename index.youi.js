@@ -19,18 +19,18 @@ export default class YiReactApp extends Component {
   constructor(props) {
     super(props);
 
-    switch(DeviceInfo.getSystemName()) {
-      case 'iOS':
-        NewRelicBridge.startWithApplicationToken('AA216ffa362de5f23adaec2ab8c09d1db36102ea91');
-        break;
-      case 'tvOS':
-        NewRelicBridge.startWithApplicationToken('AA839df3238dbfabfa2325033f3eee665ef3837b98');
-        break;
-      case 'android':
-        NewRelicBridge.startWithApplicationToken('AAe9970cb20fda505e5d6172c2e80d02e6696278b0');
-      default:
-        break;
-    }
+    //switch(DeviceInfo.getSystemName()) {
+      //case 'iOS':
+        //NewRelicBridge.startWithApplicationToken('AA216ffa362de5f23adaec2ab8c09d1db36102ea91');
+        //break;
+      //case 'tvOS':
+        //NewRelicBridge.startWithApplicationToken('AA839df3238dbfabfa2325033f3eee665ef3837b98');
+        //break;
+      //case 'android':
+        //NewRelicBridge.startWithApplicationToken('AAe9970cb20fda505e5d6172c2e80d02e6696278b0');
+      //default:
+       // break;
+   // }
 
     // NOTE: mimic iOS current DFW implementation
     NewRelicBridge.setMaxEventBufferTime(60);
