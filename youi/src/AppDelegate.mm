@@ -10,8 +10,9 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary<UIApplicationLaunchOptionsKey,id> *)launchOptions {
-    return [super application:application didFinishLaunchingWithOptions:launchOptions];
-}
+[NewRelic enableFeatures:NRFeatureFlag_NetworkRequestEvents | NRFeatureFlag_NSURLSessionInstrumentation | NRFeatureFlag_RequestErrorEvents | NRFeatureFlag_HttpResponseBodyCapture];
+    [NewRelicAgent startWithApplicationToken:@"AA216ffa362de5f23adaec2ab8c09d1db36102ea91"];
+    }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application{
 }
