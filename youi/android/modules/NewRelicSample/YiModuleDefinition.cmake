@@ -16,7 +16,7 @@ if(YI_LOCAL_JS)
     set(USE_BUNDLED_ASSETS_DEST "YI_BUNDLED_ASSETS_DEST=${YI_BUNDLED_ASSETS_DEST}")
 endif()
 
-set(NEWRELIC_APPLICATION_TOKEN "AAe9970cb20fda505e5d6172c2e80d02e6696278b0")
+set(NEWRELIC_APPLICATION_TOKEN "AAa09ecfa21693658f285dc49abae34a949a8fed9a-NRMA")
 configure_file(
     ${CMAKE_CURRENT_LIST_DIR}/newrelic.properties.in
     ${_PROJECT_DIR}/build/android/project/NewRelicSample/newrelic.properties

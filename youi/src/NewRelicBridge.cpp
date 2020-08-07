@@ -8,10 +8,10 @@ YI_RN_INSTANTIATE_MODULE(NewRelicBridgeModule);
 
 YI_RN_REGISTER_MODULE(NewRelicBridgeModule);
 
-YI_RN_DEFINE_EXPORT_METHOD(NewRelicBridgeModule, startWithApplicationToken)(std::string)
-{
-    YI_LOGI("NewRelic", "Stubbed startWithApplicationToken.");
-}
+// YI_RN_DEFINE_EXPORT_METHOD(NewRelicBridgeModule, startWithApplicationToken)(std::string)
+// {
+//     YI_LOGI("NewRelic", "Stubbed startWithApplicationToken.");
+// }
 
 YI_RN_DEFINE_EXPORT_METHOD(NewRelicBridgeModule, recordCustomEvent)(std::string, folly::dynamic)
 {

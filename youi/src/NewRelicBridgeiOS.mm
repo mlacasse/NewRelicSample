@@ -20,11 +20,11 @@ YI_RN_DEFINE_EXPORT_METHOD(NewRelicBridgeModule, setApplicationVersion)(std::str
     [NewRelic setApplicationVersion:convertFollyDynamic(version)];
 }
 
-YI_RN_DEFINE_EXPORT_METHOD(NewRelicBridgeModule, startWithApplicationToken)(std::string token)
-{
-    [NewRelic enableFeatures:NRFeatureFlag_NetworkRequestEvents | NRFeatureFlag_NSURLSessionInstrumentation | NRFeatureFlag_RequestErrorEvents | NRFeatureFlag_HttpResponseBodyCapture];
-    [NewRelicAgent startWithApplicationToken:[NSString stringWithUTF8String:token.c_str()]];
-}
+// YI_RN_DEFINE_EXPORT_METHOD(NewRelicBridgeModule, startWithApplicationToken)(std::string token)
+// {
+//     [NewRelic enableFeatures:NRFeatureFlag_NetworkRequestEvents | NRFeatureFlag_NSURLSessionInstrumentation | NRFeatureFlag_RequestErrorEvents | NRFeatureFlag_HttpResponseBodyCapture];
+//     [NewRelicAgent startWithApplicationToken:[NSString stringWithUTF8String:token.c_str()]];
+// }
 
 YI_RN_DEFINE_EXPORT_METHOD(NewRelicBridgeModule, setMaxEventBufferTime)(int32_t time)
 {

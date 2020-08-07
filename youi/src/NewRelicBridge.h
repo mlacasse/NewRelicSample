@@ -12,7 +12,7 @@ public:
 
     // NOTE: Override the reported version by calling this method *before* calling startWithApplicationToken:.
     YI_RN_EXPORT_METHOD(setApplicationVersion)(std::string version);
-    YI_RN_EXPORT_METHOD(startWithApplicationToken)(std::string token);
+    // YI_RN_EXPORT_METHOD(startWithApplicationToken)(std::string token);
     YI_RN_EXPORT_METHOD(setMaxEventBufferTime)(int32_t time);
     YI_RN_EXPORT_METHOD(setMaxEventPoolSize)(int32_t size);
     YI_RN_EXPORT_METHOD(setLogLevels)(int32_t level);

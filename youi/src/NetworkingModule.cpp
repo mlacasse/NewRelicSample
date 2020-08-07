@@ -7,11 +7,19 @@
 #include <network/YiSSLRootCertificateProvider.h>
 #include <utility/YiUtilities.h>
 
+// #include "NewRelicBridge.h"
+#include "UtilityBridgesAndroid.h"
+#include "JniGlobalRefsManager.h"
+
 #include <youireact/NativeModuleRegistry.h>
 
 using namespace yi::react;
 
 #define TAG "MyNetworkingModule"
+
+#if defined(YI_ANDROID)
+extern JNIEnv *GetEnv();
+#endif
 
 static const std::string DID_COMPLETE_NETWORK_RESPONSE_EVENT = "didCompleteNetworkResponse";
 static const std::string DID_RECEIVE_NETWORK_RESPONSE_EVENT = "didReceiveNetworkResponse";
@@ -140,6 +148,16 @@ static CYIString GetResponseData(const std::shared_ptr<CYIHTTPResponse> &pRespon
     }
 }
 
+#if defined(YI_ANDROID)
+static void NoticeHttpTransaction() {
+    JNIEnv *pEnv = GetEnv();
+    jclass bridgeClass = pEnv->FindClass("tv/youi/NewRelicBridge");
+    jmethodID methodID = pEnv->GetStaticMethodID(bridgeClass, "sampleNoticeHttpTransaction", "()V");
+    pEnv->CallStaticVoidMethod(bridgeClass, methodID);
+    YI_LOGD(TAG, "Calling sampleNoticeHttpTransaction from Cpp");
+}
+#endif
+
 YI_RN_INSTANTIATE_MODULE(MyNetworkingModule, EventEmitterModule);
 
 YI_RN_REGISTER_MODULE(MyNetworkingModule);
@@ -248,7 +266,8 @@ void MyNetworkingModule::OnRequestComplete(const std::shared_ptr<CYIHTTPRequest>
 
         // Objective-C: Track custom network requests - https://docs.newrelic.com/docs/mobile-monitoring/new-relic-mobile-ios/api-guides/ios-sdk-api-guide#objc-instrumentation
 
-#if defined(YI_IOS) || defined(YI_TVOS)
+#if defined(YI_ANDROID)
+        NoticeHttpTransaction();
         YI_LOGD(TAG,
                 "\nRequest %s\n" \
                 "\tMetrics:\n"
@@ -261,12 +280,12 @@ void MyNetworkingModule::OnRequestComplete(const std::shared_ptr<CYIHTTPRequest>
                 "\tRequest Time: %s (gets the time when the corresponding network request for this response was sent out)\n" \
                 "\tResponse Time: %s (gets the time when we started receiving this network response)\n",
                 pRequest->GetURL().ToString().GetData(),
-                pRequest->GetMetrics().enqueueTime.count(),
-                pRequest->GetMetrics().requestTime.count(),
-                pResponse->GetMetrics().initialResponseTime.count(),
-                pResponse->GetMetrics().transferCompleteTime.count(),
-                pRequest->GetPostData().size(),
-                pResponse->GetBody().GetSizeInBytes(),
+                static_cast<long long>(pRequest->GetMetrics().enqueueTime.count()),
+                static_cast<long long>(pRequest->GetMetrics().requestTime.count()),
+                static_cast<long long>(pResponse->GetMetrics().initialResponseTime.count()),
+                static_cast<long long>(pResponse->GetMetrics().transferCompleteTime.count()),
+                static_cast<long>(pRequest->GetPostData().size()),
+                static_cast<long>(pResponse->GetBody().GetSizeInBytes()),
                 pResponse->GetRequestTime().FormatString().GetData(),
                 pResponse->GetResponseTime().FormatString().GetData());
 #endif

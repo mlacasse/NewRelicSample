@@ -280,4 +280,7 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 
+# VS Code
+.vscode
+
 # End of https://www.gitignore.io/api/reactnative

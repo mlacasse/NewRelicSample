@@ -12,12 +12,17 @@ import androidx.core.content.ContextCompat;
 
 import tv.youi.youiengine.CYIActivity;
 
+import com.newrelic.agent.android.NewRelic;
+
 public class AppActivity extends CYIActivity {
     private static String LOG_TAG = "AppActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        NewRelic.withApplicationToken(
+            "AAa09ecfa21693658f285dc49abae34a949a8fed9a-NRMA"
+        ).start(this.getApplication());
     }
 
     @Override

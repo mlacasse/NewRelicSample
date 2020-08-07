@@ -1,9 +1,7 @@
-/**
- * Basic You.i RN app
- */
-import React, { Component } from 'react';
-import { AppRegistry, Image, NativeModules, StyleSheet, Text, View } from 'react-native';
-import { DeviceInfo, FormFactor } from '@youi/react-native-youi';
+
+import React, { Component } from "react";
+import { AppRegistry, Button, Image, StyleSheet, Text, View, NativeModules } from "react-native";
+import { DeviceInfo, FormFactor } from "@youi/react-native-youi";
 
 const { NewRelicBridge } = NativeModules;
 
@@ -19,18 +17,22 @@ export default class YiReactApp extends Component {
   constructor(props) {
     super(props);
 
-    //switch(DeviceInfo.getSystemName()) {
-      //case 'iOS':
-        //NewRelicBridge.startWithApplicationToken('AA216ffa362de5f23adaec2ab8c09d1db36102ea91');
-        //break;
-      //case 'tvOS':
-        //NewRelicBridge.startWithApplicationToken('AA839df3238dbfabfa2325033f3eee665ef3837b98');
-        //break;
-      //case 'android':
-        //NewRelicBridge.startWithApplicationToken('AAe9970cb20fda505e5d6172c2e80d02e6696278b0');
-      //default:
-       // break;
-   // }
+    this.state = {
+      text: 'Welcome to your first YouI React Native app with NR'
+    }
+
+    //   switch(DeviceInfo.getSystemName()) {
+    //     case 'iOS':
+    //       NewRelicBridge.startWithApplicationToken('AA216ffa362de5f23adaec2ab8c09d1db36102ea91');
+    //       break;
+    //     case 'tvOS':
+    //       NewRelicBridge.startWithApplicationToken('AA839df3238dbfabfa2325033f3eee665ef3837b98');
+    //       break;
+    //     case 'android':
+    //       NewRelicBridge.startWithApplicationToken('AAe9970cb20fda505e5d6172c2e80d02e6696278b0');
+    //     default:
+    //      break;
+    //  }
 
     // NOTE: mimic iOS current DFW implementation
     NewRelicBridge.setMaxEventBufferTime(60);
@@ -51,6 +53,23 @@ export default class YiReactApp extends Component {
         NewRelicBridge.recordCustomEvent('NetworkRequest', { eventName: 'fetch', url: response.url, status: response.status });
       })
       .catch(error => {
+        NewRelicBridge.recordCustomEvent('NetworkError', { errorMessage: error.message, url: response.url, status: response.status });
+      });
+  }
+
+  sendHttpReq() {
+    NewRelicBridge.recordCustomEvent('LifeCycleEvent', { eventName: 'onClick' });
+    console.log("#### sendHttpReq init");
+    fetch('http://jsonplaceholder.typicode.com/posts/1', {})
+      .then(response => {
+        NewRelicBridge.recordCustomEvent('NetworkRequest', { eventName: 'click', url: response.url, status: response.status });
+        this.setState({
+          text: "A HTTP request was sent!"
+        });
+        console.log("#### sendHttpReq done");
+      })
+      .catch(error => {
+        console.log("#### sendHttpReq error", error);
         NewRelicBridge.recordCustomEvent('NetworkError', { errorMessage: error.message, url: response.url, status: response.status });
       });
   }
@@ -78,24 +97,25 @@ export default class YiReactApp extends Component {
               source={{ uri: 'res://drawable/default/youi_logo_red.png' }}
             />
           </View>
+          <View style={styles.buttonContainer}
+            focusable={true}
+            accessible={true}
+            accessibilityLabel="My button"
+            accessibilityHint="Button in your first app"
+            accessibilityRole="button"
+          >
+            <Button
+              onPress={() => {this.sendHttpReq()}}
+              title="My button"
+            />
+          </View>
         </View>
         <View style={styles.bodyContainer} focusable={true} accessible={true}>
           <Text
             style={styles.headlineText}
-            accessibilityLabel='Welcome to your first You I React Native app'
+            accessibilityLabel='Welcome to your first You.i React Native app!'
           >
-            Welcome to your first You.i React Native app!
-          </Text>
-          <Text
-            style={styles.bodyText}
-          >
-            For more information on where to go next visit
-          </Text>
-          <Text
-            style={styles.bodyText}
-            accessibilityLabel='https://developer dot you i dot tv'
-          >
-            https://developer.youi.tv
+            {this.state.text}
           </Text>
         </View>
       </View>
@@ -137,7 +157,12 @@ const styles = StyleSheet.create({
   bodyText: {
     color: '#333333',
     textAlign: 'center'
-  }
+  },
+  buttonContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
+  },
 });
 
 AppRegistry.registerComponent('YiReactApp', () => YiReactApp);

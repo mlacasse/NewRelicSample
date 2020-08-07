@@ -15,14 +15,14 @@ YI_RN_INSTANTIATE_MODULE(NewRelicBridgeModule);
 
 YI_RN_REGISTER_MODULE(NewRelicBridgeModule);
 
-YI_RN_DEFINE_EXPORT_METHOD(NewRelicBridgeModule, startWithApplicationToken)(std::string token)
-{
-    JNIEnv *pEnv = GetEnv();
-    jclass bridgeClass = pEnv->FindClass("tv/youi/NewRelicBridge");
-    jmethodID methodID = pEnv->GetStaticMethodID(bridgeClass, "startWithApplicationToken", "(Ljava/lang/String;Landroid/content/Context;)V");
-    jstring jToken = pEnv->NewStringUTF(token.c_str());
-    pEnv->CallStaticVoidMethod(bridgeClass, methodID, jToken, cachedActivity);
-}
+// YI_RN_DEFINE_EXPORT_METHOD(NewRelicBridgeModule, startWithApplicationToken)(std::string token)
+// {
+//     JNIEnv *pEnv = GetEnv();
+//     jclass bridgeClass = pEnv->FindClass("tv/youi/NewRelicBridge");
+//     jmethodID methodID = pEnv->GetStaticMethodID(bridgeClass, "startWithApplicationToken", "(Ljava/lang/String;Landroid/content/Context;)V");
+//     jstring jToken = pEnv->NewStringUTF(token.c_str());
+//     pEnv->CallStaticVoidMethod(bridgeClass, methodID, jToken, cachedActivity);
+// }
 
 YI_RN_DEFINE_EXPORT_METHOD(NewRelicBridgeModule, setApplicationVersion)(std::string version)
 {
