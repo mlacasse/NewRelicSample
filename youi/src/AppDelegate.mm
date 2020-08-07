@@ -5,6 +5,8 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 
+#import <NewRelicAgent/NewRelic.h>
+
 #define LOG_TAG "AppDelegate"
 
 @implementation AppDelegate
