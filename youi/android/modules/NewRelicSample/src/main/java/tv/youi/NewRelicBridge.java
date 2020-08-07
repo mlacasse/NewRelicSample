@@ -9,20 +9,10 @@ import com.newrelic.agent.android.NewRelic;
 import com.newrelic.agent.android.util.NetworkFailure;
 
 public class NewRelicBridge {
+
     private final static String TAG = "NewRelicBridge";
     private final static String EVENT_TYPE = "DFW_Mobile";
     private static NewRelic newRelic = null;
-
-    // static void startWithApplicationToken(final String token, final Context context) {
-    //     setMaxEventBufferTime(60);
-    //     //NewRelic.enableFeature(FeatureFlag.NetworkRequests);
-    //     if (newRelic == null) {
-    //         newRelic = NewRelic.withApplicationToken(token);
-    //         newRelic.withDefaultInteractions(false)
-    //                 .withCrashReportingEnabled(true)
-    //                 .start(((Activity) context).getApplication());
-    //     }
-    // }
 
     static void setAttribute(final String name, final String value) {
         Log.d(TAG, "setAttribute -> " + name + ", " + value);
@@ -71,57 +61,52 @@ public class NewRelicBridge {
         }
     }
 
-    static void noticeHttpTransaction(String url, String httpMethod, int statusCode, int startTime, int endTime,int bytesSend,int bytesReceived){
+    static void noticeHttpTransaction(String url, String httpMethod, int statusCode, long startTime, long endTime,long bytesSend,long bytesReceived){
         Log.d(TAG, String.format("noticeHttpTransaction -> %s", url));
-        if (newRelic != null) {
-            NewRelic.noticeHttpTransaction(
-                url,
-                httpMethod,
-                statusCode,
-                startTime,
-                endTime,
-                bytesSend,
-                bytesReceived
-            );
-        }
-    }
-
-    static void sampleNoticeHttpTransaction(){
-        Log.d(TAG, String.format("sampleNoticeHttpTransaction -> %s", "http://jsonplaceholder.typicode.com/posts/1"));
-
-        long endTime = System.nanoTime();
-        long startTime = endTime - 230450028; 
-
         NewRelic.noticeHttpTransaction(
-            "http://jsonplaceholder.typicode.com/posts/1",
-            "GET",
-            200,
+            url,
+            httpMethod,
+            statusCode,
             startTime,
             endTime,
-            0,
-            345
+            bytesSend,
+            bytesReceived
         );
     }
 
-    static void noticeNetworkFailure(String url, String httpMethod, int startTime, int endTime, String message){
+    /**
+     * 
+     * @param url
+     * @param httpMethod
+     * @param startTime
+     * @param endTime
+     * @param errorCode Unknown(-1), BadURL(-1000), TimedOut(-1001), CannotConnectToHost(-1004), DNSLookupFailed(-1006), BadServerResponse(-1011), SecureConnectionFailed(-1200);
+     * @param message
+     */
+    static void noticeNetworkFailure(String url, String httpMethod, long startTime, long endTime, int errorCode, String message){
         Log.d(TAG, String.format("noticeNetworkFailure -> %s", url));
-        if (newRelic != null) {
-            NewRelic.noticeNetworkFailure(
-                url,
-                httpMethod,
-                startTime,
-                endTime,
-                NetworkFailure.Unknown,
-                "No Data"
-            );
-        }
+        NewRelic.noticeNetworkFailure(
+            url,
+            httpMethod,
+            startTime,
+            endTime,
+            NetworkFailure.fromErrorCode(errorCode),
+            message
+        );
     }
 
     static void crashNow()
     {
-        if (newRelic != null) {
-            Log.d(TAG, String.format("crashNow"));
-            newRelic.crashNow("This is a test crash on android.");
-        }
+        Log.d(TAG, String.format("crashNow"));
+        NewRelic.crashNow("This is a test crash on android.");
+    }
+
+    /**
+     * Sample code just for PoC
+     */
+    static void sampleNoticeHttpTransaction(){
+        long endTime = System.nanoTime();
+        long startTime = endTime - 230450028; 
+        noticeHttpTransaction("http://jsonplaceholder.typicode.com/posts/1","GET",200,startTime,endTime,0,345);
     }
 }
