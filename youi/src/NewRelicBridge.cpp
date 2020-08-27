@@ -48,4 +48,14 @@ YI_RN_DEFINE_EXPORT_METHOD(NewRelicBridgeModule, crashNow)()
     YI_LOGI("NewRelic", "Stubbed crashNow.");
 }
 
+YI_RN_DEFINE_EXPORT_METHOD(NewRelicBridgeModule, crashSync)(std::string)
+{
+    YI_LOGI("NewRelic", "Stubbed crashSync.");
+}
+
+YI_RN_DEFINE_EXPORT_METHOD(NewRelicBridgeModule, crashAsync)(std::string)
+{
+    YI_LOGI("NewRelic", "Stubbed crashAsync.");
+}
+
 #endif

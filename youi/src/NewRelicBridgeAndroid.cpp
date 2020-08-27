@@ -88,4 +88,22 @@ YI_RN_DEFINE_EXPORT_METHOD(NewRelicBridgeModule, crashNow)()
     pEnv->CallStaticVoidMethod(bridgeClass, methodID);
 }
 
+YI_RN_DEFINE_EXPORT_METHOD(NewRelicBridgeModule, crashSync)(std::string message)
+{
+    JNIEnv *pEnv = GetEnv();
+    jstring errorMessage = pEnv->NewStringUTF(message.c_str());
+    jclass bridgeClass = pEnv->FindClass("tv/youi/NewRelicBridge");
+    jmethodID methodID = pEnv->GetStaticMethodID(bridgeClass, "crashSync", "(Ljava/lang/String;)V");
+    pEnv->CallStaticVoidMethod(bridgeClass, methodID, errorMessage);
+}
+
+YI_RN_DEFINE_EXPORT_METHOD(NewRelicBridgeModule, crashAsync)(std::string message)
+{
+    JNIEnv *pEnv = GetEnv();
+    jstring errorMessage = pEnv->NewStringUTF(message.c_str());
+    jclass bridgeClass = pEnv->FindClass("tv/youi/NewRelicBridge");
+    jmethodID methodID = pEnv->GetStaticMethodID(bridgeClass, "crashAsync", "(Ljava/lang/String;)V");
+    pEnv->CallStaticVoidMethod(bridgeClass, methodID, errorMessage);
+}
+
 #endif

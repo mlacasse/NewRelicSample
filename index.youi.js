@@ -74,6 +74,15 @@ export default class YiReactApp extends Component {
       });
   }
 
+  crashSync() {
+    NewRelicBridge.crashSync('force crash');
+  }
+
+
+  crashAsync() {
+    NewRelicBridge.crashAsync('force crash');
+  }
+
   componentWillMount() {
     NewRelicBridge.recordCustomEvent('LifeCycleEvent', { eventName: 'componentWillMount' });
   }
@@ -107,6 +116,30 @@ export default class YiReactApp extends Component {
             <Button
               onPress={() => {this.sendHttpReq()}}
               title="My button"
+            />
+          </View>
+          <View style={styles.buttonContainer}
+            focusable={true}
+            accessible={true}
+            accessibilityLabel="My button"
+            accessibilityHint="Button in your first app"
+            accessibilityRole="button"
+          >
+            <Button
+              onPress={() => {this.crashSync()}}
+              title="Crash Sync"
+            />
+          </View>
+          <View style={styles.buttonContainer}
+            focusable={true}
+            accessible={true}
+            accessibilityLabel="My button"
+            accessibilityHint="Button in your first app"
+            accessibilityRole="button"
+          >
+            <Button
+              onPress={() => {this.crashAsync()}}
+              title="Crash Async"
             />
           </View>
         </View>

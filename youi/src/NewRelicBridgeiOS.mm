@@ -56,4 +56,18 @@ YI_RN_DEFINE_EXPORT_METHOD(NewRelicBridgeModule, crashNow)()
     [NewRelicAgent crashNow:@"This is a test crash on iOS/tvOS."];
 }
 
+YI_RN_DEFINE_EXPORT_METHOD(NewRelicBridgeModule, crashSync)(std::string message)
+{
+    NSException *handledJsException = [[NSException alloc] initWithName:@"JSRuntimeException" reason:[NSString stringWithUTF8String:message.c_str()] userInfo:nil];
+
+    [NewRelicAgent recordHandledException:handledJsException];
+
+    @throw [[NSException alloc] initWithName:@"JSCrash" reason:@"Forced crash due to unhandled javascript runtime error" userInfo:nil];
+}
+
+YI_RN_DEFINE_EXPORT_METHOD(NewRelicBridgeModule, crashAsync)(std::string)
+{
+    YI_LOGI("NewRelic", "Stubbed crashAsync.");
+}
+
 #endif

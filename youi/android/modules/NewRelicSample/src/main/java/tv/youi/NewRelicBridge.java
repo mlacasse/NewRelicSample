@@ -4,6 +4,8 @@ import java.util.Map;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
+import android.os.Handler;
+import android.os.Looper;
 
 import com.newrelic.agent.android.NewRelic;
 import com.newrelic.agent.android.util.NetworkFailure;
@@ -75,7 +77,7 @@ public class NewRelicBridge {
     }
 
     /**
-     * 
+     *
      * @param url
      * @param httpMethod
      * @param startTime
@@ -106,7 +108,26 @@ public class NewRelicBridge {
      */
     static void sampleNoticeHttpTransaction(){
         long endTime = System.nanoTime();
-        long startTime = endTime - 230450028; 
+        long startTime = endTime - 230450028;
         noticeHttpTransaction("http://jsonplaceholder.typicode.com/posts/1","GET",200,startTime,endTime,0,345);
+    }
+
+    static void crashAsync(String message) {
+      String crashMessage = String.format("Forced crash due to unhandled javascript runtime error: %s", message);
+      Log.d(TAG, crashMessage);
+      NewRelic.recordHandledException(new Exception(message));
+      final Handler mainThreadHandler = new Handler(Looper.getMainLooper());
+      // Observation: crash will be captured by crash analytics
+      mainThreadHandler.post(() -> {
+          throw new RuntimeException(crashMessage);
+      });
+    }
+
+    static void crashSync(String message) throws RuntimeException {
+      String crashMessage = String.format("Forced crash due to unhandled javascript runtime error: %s", message);
+      Log.d(TAG, crashMessage);
+      NewRelic.recordHandledException(new Exception(message));
+      // Observation: crash is not captured by crash analytics
+      throw new RuntimeException(crashMessage);
     }
 }

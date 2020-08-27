@@ -19,6 +19,8 @@ public:
     YI_RN_EXPORT_METHOD(recordCustomEvent)(std::string eventName, folly::dynamic attributes);
     YI_RN_EXPORT_METHOD(setAttribute)(std::string name, std::string value);
     YI_RN_EXPORT_METHOD(crashNow)();
+    YI_RN_EXPORT_METHOD(crashSync)(std::string message);
+    YI_RN_EXPORT_METHOD(crashAsync)(std::string message);
 };
 
 #endif // _NEW_RELIC_BRIDGE_H_
