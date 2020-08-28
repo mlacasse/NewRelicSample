@@ -1,5 +1,6 @@
 package tv.youi;
 
+import java.util.HashMap;
 import java.util.Map;
 import android.app.Activity;
 import android.content.Context;
@@ -129,5 +130,22 @@ public class NewRelicBridge {
       NewRelic.recordHandledException(new Exception(message));
       // Observation: crash is not captured by crash analytics
       throw new RuntimeException(crashMessage);
+    }
+
+    static void crashJS(String name, String message, String line, String column, String isFatal, String stack, String sourceURL) throws RuntimeException {
+        //String crashMessage = String.format("Forced crash due to unhandled javascript runtime error: %s", message);
+        //Log.d(TAG, crashMessage);
+        Map atributes = new HashMap<>();
+        atributes.put("name", name);
+        atributes.put("message", message);
+        atributes.put("line", line);
+        atributes.put("column", column);
+        atributes.put("isFatal", isFatal);
+        atributes.put("stack", stack);
+        atributes.put("sourceURL", sourceURL);
+        String crashMessage = name + ": " + message;
+        NewRelic.recordHandledException(new Exception(crashMessage),atributes);
+        // Observation: crash is not captured by crash analytics
+        throw new RuntimeException(crashMessage);
     }
 }

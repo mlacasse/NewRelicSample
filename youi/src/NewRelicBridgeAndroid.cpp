@@ -95,6 +95,7 @@ YI_RN_DEFINE_EXPORT_METHOD(NewRelicBridgeModule, crashSync)(std::string message)
     jclass bridgeClass = pEnv->FindClass("tv/youi/NewRelicBridge");
     jmethodID methodID = pEnv->GetStaticMethodID(bridgeClass, "crashSync", "(Ljava/lang/String;)V");
     pEnv->CallStaticVoidMethod(bridgeClass, methodID, errorMessage);
+
 }
 
 YI_RN_DEFINE_EXPORT_METHOD(NewRelicBridgeModule, crashAsync)(std::string message)
@@ -104,6 +105,21 @@ YI_RN_DEFINE_EXPORT_METHOD(NewRelicBridgeModule, crashAsync)(std::string message
     jclass bridgeClass = pEnv->FindClass("tv/youi/NewRelicBridge");
     jmethodID methodID = pEnv->GetStaticMethodID(bridgeClass, "crashAsync", "(Ljava/lang/String;)V");
     pEnv->CallStaticVoidMethod(bridgeClass, methodID, errorMessage);
+}
+
+YI_RN_DEFINE_EXPORT_METHOD(NewRelicBridgeModule, crashJS)(std::string name,std::string message, std::string line, std::string column, std::string isFatal, std::string stack, std::string sourceURL)
+{
+    JNIEnv *pEnv = GetEnv();
+    jstring errorName = pEnv->NewStringUTF(name.c_str());
+    jstring errorMessage = pEnv->NewStringUTF(message.c_str());
+    jstring errorLine = pEnv->NewStringUTF(line.c_str());
+    jstring errorColumn = pEnv->NewStringUTF(column.c_str());
+    jstring errorIsFatal = pEnv->NewStringUTF(isFatal.c_str());
+    jstring errorStack = pEnv->NewStringUTF(stack.c_str());
+    jstring errorSourceURL = pEnv->NewStringUTF(sourceURL.c_str());
+    jclass bridgeClass = pEnv->FindClass("tv/youi/NewRelicBridge");
+    jmethodID methodID = pEnv->GetStaticMethodID(bridgeClass, "crashJS", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+    pEnv->CallStaticVoidMethod(bridgeClass, methodID, errorName,errorMessage,errorLine,errorColumn,errorIsFatal,errorStack,errorSourceURL);
 }
 
 #endif

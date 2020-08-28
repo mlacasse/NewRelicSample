@@ -21,6 +21,7 @@ public:
     YI_RN_EXPORT_METHOD(crashNow)();
     YI_RN_EXPORT_METHOD(crashSync)(std::string message);
     YI_RN_EXPORT_METHOD(crashAsync)(std::string message);
+    YI_RN_EXPORT_METHOD(crashJS)(std::string name,std::string message, std::string line, std::string column, std::string isFatal, std::string stack, std::string sourceURL);
 };
 
 #endif // _NEW_RELIC_BRIDGE_H_

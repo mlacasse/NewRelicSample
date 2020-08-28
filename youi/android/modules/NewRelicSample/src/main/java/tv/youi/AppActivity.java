@@ -21,7 +21,7 @@ public class AppActivity extends CYIActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         NewRelic.withApplicationToken(
-            "AAa09ecfa21693658f285dc49abae34a949a8fed9a-NRMA"
+            "AAa51587e146cddf3ea149e2d1edc98d242071eafe-NRMA"
         ).start(this.getApplication());
     }
 
